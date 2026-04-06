@@ -1,0 +1,19 @@
+# Environment files (keep .env.local as template)
+.env
+.env.production
+.env.staging
+
+# Runtime data
+data/
+ssh_keys/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~

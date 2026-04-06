@@ -1,0 +1,40 @@
+version: "3.8"
+services:
+  isa-scanner:
+    image: ghcr.io/intellisoftalpin/isa:${ISA_IMAGE_TAG:-latest}
+    container_name: isa-scanner
+    ports:
+      - "${ISA_PORT:-18080}:18080"
+    volumes:
+      - "${ISA_DATA_HOST_DIR:-./data}:/app/data"
+      - "${ISA_SSH_KEYS_HOST_DIR:-./ssh_keys}:/app/ssh_keys"
+    restart: unless-stopped
+    environment:
+      - ISA_PORT=18080
+      - ISA_DATA_DIR=/app/data
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:18080/health"]
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 3
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Stockholm
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command:
+      - --debug
+      - --label-enable
+      - --cleanup
+      - --schedule
+      # - "*/2 * * * *"
+      - "0 7 * * *"
+      - --rolling-restart
