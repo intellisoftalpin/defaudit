@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   isa-scanner:
     image: ghcr.io/intellisoftalpin/isa:${ISA_IMAGE_TAG:-latest}
