@@ -15,7 +15,7 @@ Designed for organizations that need to meet compliance requirements such as the
 ## Why defaudit
 
 - **Zero-Knowledge Architecture** — Your code stays on your servers. No cloud uploads, no external data transfers. Full GDPR compliance with data kept in your jurisdiction.
-- **13+ Languages in One Tool** — Replace multiple scanners with a single platform covering Go, Java, JavaScript, TypeScript, Python, PHP, Kotlin, Rust, C/C++, C#, Swift, Dart/Flutter, and ABAP.
+- **40+ Scanning Tools, One Platform** — Orchestrates over 40 open-source and proprietary security tools — including defaudit's own native analyzers — across 13+ languages: Go, Java, JavaScript, TypeScript, Python, PHP, Kotlin, Rust, C/C++, C#, Swift, Dart/Flutter, and ABAP.
 - **Compliance-Ready Reporting** — Generate ISO 27001-compliant PDF reports, SBOM documents, and audit trails. Track vulnerability lifecycle and remediation progress over time.
 - **Enterprise Security Built In** — Role-based access control (RBAC), mandatory two-factor authentication (TOTP) for administrators, LDAP/Active Directory integration, and comprehensive audit logging.
 - **Shift-Left Security** — Integrate vulnerability detection early in your development lifecycle. Schedule automated scans, track trends, and reduce your security backlog before code reaches production.
