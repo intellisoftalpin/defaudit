@@ -1,15 +1,17 @@
 SHELL := /bin/sh
+
+DOCKER ?= docker
 ENV_FILE ?= .env
 
 define DOCKER_COMPOSE
-	if $(DOCKER) compose version >/dev/null 2>&1; then \
-		echo "$(DOCKER) compose"; \
-	elif command -v docker-compose >/dev/null 2>&1; then \
-		echo "docker-compose"; \
-	else \
-		echo "ERROR: Docker Compose not found. Install docker compose command (v2 plugin preferred)." 1>&2; \
-		exit 1; \
-	fi
+if command -v $(DOCKER) >/dev/null 2>&1 && $(DOCKER) compose version >/dev/null 2>&1; then \
+	echo "$(DOCKER) compose"; \
+elif command -v docker-compose >/dev/null 2>&1; then \
+	echo "docker-compose"; \
+else \
+	echo "ERROR: Docker Compose not found. Install Docker Compose v2 plugin or docker-compose." 1>&2; \
+	exit 1; \
+fi
 endef
 
 .PHONY: help init pull up start down
@@ -25,6 +27,7 @@ help:
 	@echo "| up             | Start services                                |"
 	@echo "| start          | init + pull + up                              |"
 	@echo "| down           | Stop services                                 |"
+	@echo "| ps             | Show service status                           |"
 	@echo "+----------------+-----------------------------------------------+"
 	@echo ""
 	@echo "+----------------+-----------------------------------------------+"
@@ -46,12 +49,19 @@ init:
 	fi
 
 pull:
-	@COMPOSE="$$(sh -c '$(DOCKER_COMPOSE)')" && $$COMPOSE --env-file "$(ENV_FILE)" pull
+	@COMPOSE="$$($(DOCKER_COMPOSE))"; \
+	$$COMPOSE --env-file "$(ENV_FILE)" pull
 
 up: init
-	@COMPOSE="$$(sh -c '$(DOCKER_COMPOSE)')" && $$COMPOSE --env-file "$(ENV_FILE)" up -d
+	@COMPOSE="$$($(DOCKER_COMPOSE))"; \
+	$$COMPOSE --env-file "$(ENV_FILE)" up -d
 
 start: init pull up
 
 down:
-	@COMPOSE="$$(sh -c '$(DOCKER_COMPOSE)')" && $$COMPOSE --env-file "$(ENV_FILE)" down
+	@COMPOSE="$$($(DOCKER_COMPOSE))"; \
+	$$COMPOSE --env-file "$(ENV_FILE)" down
+
+ps:
+	@COMPOSE="$$($(DOCKER_COMPOSE))"; \
+	$$COMPOSE --env-file "$(ENV_FILE)" ps
