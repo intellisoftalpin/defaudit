@@ -5,8 +5,8 @@ services:
     ports:
       - "${ISA_PORT:-18080}:18080"
     volumes:
-      - "${ISA_DATA_HOST_DIR:-./data}:/app/data"
-      - "${ISA_SSH_KEYS_HOST_DIR:-./ssh_keys}:/app/ssh_keys"
+      - ${ISA_DATA_HOST_DIR:-./data}:/app/data:rw
+      - ${ISA_SSH_KEYS_HOST_DIR:-./ssh_keys}:/app/ssh_keys:rw
     restart: unless-stopped
     environment:
       - ISA_PORT=18080
