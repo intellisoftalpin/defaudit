@@ -34,6 +34,6 @@ services:
       - --label-enable
       - --cleanup
       - --schedule
-      # - "*/2 * * * *"
-      - "0 7 * * *"
+      # - "0 */45 * * * *"
+      - "0 0 7 * * *"
       - --rolling-restart
