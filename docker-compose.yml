@@ -26,7 +26,8 @@ services:
     container_name: watchtower
     restart: unless-stopped
     environment:
-      - TZ=Europe/Stockholm
+      TZ: Europe/Stockholm
+      DOCKER_API_VERSION: "1.44"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     command:
